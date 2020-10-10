@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { FormControl, MenuItem, Select } from "@material-ui/core";
+import InfoBox from './InfoBox';
+import Map from './Map';
 import "./App.css";
 
 function App() {
   const [countries, setCountries] = useState(["USA", "UK", "INDIA"]);
-  //https://disease.sh/v3/covid-19/countries
+  const[country, setCountry]= useState("worldwide");
 
     useEffect(() => {
       const getCountiresData = async ()=> {
@@ -22,37 +24,49 @@ function App() {
       };
       getCountiresData();
     },[]);
+
+    const onCountryChange = async (event) => {
+      const countryCode = event.target.value;
+      setCountry(countryCode);
+        };
   return (
     <div className="app">
+      <div className="app__left">
       <div className="app_header">
         <h1>Covid-19 Tracker</h1>
         <FormControl className="app_dropdown">
-          <Select variant="outlined" var="abc">
-            {/*loop through all the countries and show a drop down list of the countries */}
-
+          <Select variant="outlined" onChange={onCountryChange} value={country}>
+            <MenuItem value="worldwide">Worldwide</MenuItem>
             {countries.map((country) => (
               <MenuItem value={country.value}>{country.name}</MenuItem>
             ))}
-            {/* <MenuItem value="worldwide">Worldwide</MenuItem>
-          <MenuItem value="worldwide">Option 2</MenuItem>
-          <MenuItem value="worldwide">Option 3</MenuItem>
-          <MenuItem value="worldwide">Option 4</MenuItem>*/}
           </Select>
         </FormControl>
       </div>
 
-      {/*Header*/}
-      {/* Title + select input drodown field*/}
+    
+     <div className="app__stats">
+       <InfoBox title="Coronavirus Cases"  cases={123} total={2000}/>
 
-      {/*InfoBoxes*/}
-      {/*InfoBoxes*/}
-      {/*InfoBoxes*/}
+       <InfoBox title="Recovered"  cases={1234} total={3000}/>
 
-      {/*Tables */}
-      {/*Graph*/}
+       <InfoBox title="Deaths" cases={12345} total={4000}/>
+       
+      </div>         
+      
+
+      
 
       {/*Map*/}
-    </div>
+      <Map/>
+       </div>
+
+       <div className="app__right">
+         {/*Tables */}
+      {/*Graph*/}
+       </div>
+      </div>
+      
   );
 }
 
