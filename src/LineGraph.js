@@ -49,7 +49,7 @@ const options = {
   };
   
 
-function LineGraph() {
+function LineGraph({casesType ='cases'}) {
 const [data, setData] = useState({});
 
 
@@ -79,12 +79,11 @@ useEffect(()=>{
     });
     };
     fetchData();
-},[]);
+},[casesType]);
 
 
     return (
         <div>
-            <h1> i am graph</h1>
             {data?.length > 0 &&(
             <Line
             options={options}
