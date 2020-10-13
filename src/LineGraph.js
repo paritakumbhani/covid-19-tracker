@@ -1,4 +1,3 @@
-import { rgbToHex } from '@material-ui/core';
 import React, {useState, useEffect} from 'react';
 import {Line} from "react-chartjs-2";
 import numeral from "numeral";
@@ -49,7 +48,7 @@ const options = {
   };
   
 
-function LineGraph({casesType ='cases'}) {
+function LineGraph({casesType ='cases', ...props}) {
 const [data, setData] = useState({});
 
 
@@ -83,7 +82,7 @@ useEffect(()=>{
 
 
     return (
-        <div>
+        <div className={props.className}>
             {data?.length > 0 &&(
             <Line
             options={options}
